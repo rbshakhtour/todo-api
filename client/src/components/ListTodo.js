@@ -21,6 +21,26 @@ const ListTodos = () => {
         }
     };
 
+    const markDone = async(id) => {
+        try{
+            const response = await fetch(`http://localhost:5000/todos/${id}`, {
+                method: "PUT",
+                headers: {"Content-Type" : "application/json"},
+                body: JSON.stringify({done: true}),
+            });
+
+            setTodos(todos.map(todo => {
+                if(todo.todo_id !== id){
+                    return {...todo, done: true};
+                }
+
+                return todo;
+            }));
+        }catch(err){
+            console.error(err.message);
+        }
+    };
+
 
 
     const getTodos = async() => {
@@ -45,7 +65,7 @@ const ListTodos = () => {
             <thead>
                 <tr>
                     <th>Description</th>
-                    <th>Edit</th>
+                    <th>Done</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -59,7 +79,11 @@ const ListTodos = () => {
                     <tr key={todo.todo_id}>
                         <td>{todo.description}</td>
                         <td>
-                            <EditTodo todo ={todo}/>
+                           <input
+                                type="checkbox"
+                                checked={todo.done}
+                                onChange={() => markDone(todo.todo_id)}
+                            />
                         </td>
                         <td>
                             <button 
