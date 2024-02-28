@@ -70,11 +70,6 @@ const ListTodos = () => {
                 </tr>
             </thead>
             <tbody>
-                {/* <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr> */}
                 {todos.map(todo => (
                     <tr key={todo.todo_id}>
                         <td>{todo.description}</td>
