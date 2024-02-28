@@ -20,7 +20,7 @@ const InputTodo = () => {
     }
     return (
         <Fragment>
-            <h1 className="text-center mt-5">Pern Todo List</h1>
+            <h1 className="text-center mt-5">Get to Work!</h1>
             <form className="d-flex mt-5" onSubmit={onSubmitForm}>
                 <input 
                     type="text" 
@@ -28,7 +28,10 @@ const InputTodo = () => {
                     value={description} 
                     onChange={e => setDescription(e.target.value)}
                 />
-                <button className="btn btn-sucess">Add</button>
+                <button className="btn btn-dark" 
+                    style={{backgroundColor: '#392f26', borderColor: '#392f26', fontFamily:'cursive'}}>
+                    Add
+                </button>
             </form>
         </Fragment>
     );

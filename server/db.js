@@ -9,10 +9,17 @@ const pool = new Pool({
 });
 
 const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS todo (
+    CREATE TABLE IF NOT EXISTS todo_lists (
+        list_id SERIAL PRIMARY KEY,
+        list_name VARCHAR(255) NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS todos (
         todo_id SERIAL PRIMARY KEY,
-        description VARCHAR(255)
-    )
+        list_id INT REFERENCES todo_lists(list_id) ON DELETE CASCADE,
+        description VARCHAR(255) NOT NULL,
+        completed BOOLEAN DEFAULT FALSE
+    );
 `;
 
 pool.query(createTableQuery, (err, res) => {
@@ -20,7 +27,6 @@ pool.query(createTableQuery, (err, res) => {
         console.error('Error creating table:', err);
     } else {
         console.log('Table created successfully');
-        // Start your Node.js application here
     }
 });
 
